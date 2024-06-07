@@ -1,0 +1,35 @@
+@if (task) {
+<div
+  class="custom-modal"
+  id="modal-{{ task.id }}"
+  style="{{ show ? 'display: flex' : 'display: none' }}"
+>
+  <div class="modal-content">
+    <div class="modal-header d-flex justify-content-between">
+      <h5 class="modal-title">Finalizar tarea</h5>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closeModal()"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <p>{{ task.title }}</p>
+    </div>
+    <div class="modal-footer">
+      <button
+        style="margin-right: 10px"
+        type="button"
+        class="btn btn-secondary"
+        (click)="closeModal()"
+      >
+        Cancelar
+      </button>
+      <button type="button" class="btn btn-primary" (click)="accept()">
+        Finalizar
+      </button>
+    </div>
+  </div>
+</div>
+}

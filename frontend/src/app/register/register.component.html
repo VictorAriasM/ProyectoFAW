@@ -1,0 +1,61 @@
+<app-welcome-banner sideImage="/register-image.jpg">
+  <h2 class="card-title mb-5">¡Regístrate!</h2>
+  <p>Llena el siguiente formulario para registrarte</p>
+  <div class="register-form">
+    <input
+      type="email"
+      id="email"
+      class="form-control mb-3"
+      placeholder="Email"
+      [(ngModel)]="email"
+    />
+    <input
+      type="text"
+      id="name"
+      class="form-control mb-3"
+      placeholder="Nombre"
+      [(ngModel)]="name"
+    />
+    <input
+      type="text"
+      id="birthday"
+      class="form-control mb-3"
+      placeholder="Fecha Nacimiento"
+      [(ngModel)]="birthday"
+    />
+    <input
+      type="password"
+      id="password"
+      class="form-control mb-3"
+      placeholder="Contraseña"
+      [(ngModel)]="password"
+    />
+    <p class="mt-3">Selecciona tu género.</p>
+    <div class="d-flex gap-5">
+      <div class="form-check">
+        <input
+          type="radio"
+          id="male"
+          class="form-check-input"
+          name="gender"
+          [(ngModel)]="gender"
+          value="MASCULINO"
+        />
+        <label for="male" class="form-check-label">Masculino</label>
+      </div>
+      <div class="form-check">
+        <input
+          type="radio"
+          id="female"
+          class="form-check-input"
+          name="gender"
+          [(ngModel)]="gender"
+          value="FEMENINO"
+        />
+        <label for="female" class="form-check-label">Femenino</label>
+      </div>
+    </div>
+    <button class="btn btn-primary mt-4" (click)="register()">Register</button>
+  </div>
+  <p class="mt-4">Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
+</app-welcome-banner>

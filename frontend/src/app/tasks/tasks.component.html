@@ -1,0 +1,166 @@
+@if (user) {
+<!-- <button class="btn btn-primary" (click)="logout()">Logout</button> -->
+<div
+  class="container-fluid p-0 vh-100"
+  style="
+    background: url('/tasks-background.jpg');
+    background-position: center;
+    background-size: cover;
+  "
+>
+  <div class="row h-100">
+    <div class="col-md-6 offset-md-3 bg-white p-4 pt-2">
+      <div class="row mb-2">
+        <div class="col-md-12" style="text-align: right">
+          {{ user.name }} -
+          <span style="cursor: pointer" class="text-primary" (click)="logout()"
+            >Logout</span
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center mb-4">
+          <img src="/tm-logo.png" alt="tm logo" class="w-50" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <input
+                type="text"
+                class="form-control mb-2"
+                placeholder="Título"
+                [(ngModel)]="title"
+              />
+              <input
+                type="text"
+                class="form-control mb-2"
+                placeholder="Descripción"
+                [(ngModel)]="description"
+              />
+              <select class="form-control mb-2" [(ngModel)]="priority">
+                <option value="" disabled selected>
+                  Selecciona una prioridad
+                </option>
+                <option value="ALTA">ALTA</option>
+                <option value="MEDIA">MEDIA</option>
+                <option value="BAJA">BAJA</option>
+              </select>
+              <button class="btn btn-primary" (click)="createTask()">
+                Crear tarea
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="search"
+                    [(ngModel)]="searchFilter"
+                    placeholder="Buscar tarea..."
+                    (input)="refetch()"
+                  />
+                </div>
+                <div class="col-md-2">
+                  <select
+                    class="form-select"
+                    aria-label="sort select"
+                    id="sort"
+                    [(ngModel)]="sortFilter"
+                    (change)="refetch()"
+                  >
+                    <option value="asc" selected>A-Z</option>
+                    <option value="desc">Z-A</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <select
+                    class="form-select"
+                    aria-label="priority select"
+                    id="priority"
+                    [(ngModel)]="priorityFilter"
+                    (change)="refetch()"
+                  >
+                    <option value="" selected>TODAS</option>
+                    <option value="1">ALTA</option>
+                    <option value="2">MEDIA</option>
+                    <option value="3">BAJA</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 overflow-y-auto task-scroll">
+          @if (tasks.length > 0) { @for (task of tasks; track task.id) {
+          <div
+            class="card mt-2 prioridad-{{ task.priority }} rounded-4"
+            (click)="setSelectedTask(task)"
+          >
+            <div class="card-body relative">
+              <div class="row d-flex align-items-start justify-content-between">
+                <div class="col-9">
+                  <h5 class="card-title mb-0">{{ task.title }}</h5>
+                  <p class="card-text">{{ task.description }}</p>
+                </div>
+                <div
+                  class="col-3 d-flex gap-2 justify-content-end"
+                  style="text-align: right"
+                >
+                  <!-- <button class="btn-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-pencil-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                      />
+                    </svg>
+                  </button> -->
+                </div>
+              </div>
+              <div class="created-at">
+                <small>{{ formatElapsedTime(task.created_at) }}</small>
+              </div>
+            </div>
+          </div>
+          } } @else {
+          <p class="text-center mt-4">Agrega una tarea para comenzar.</p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal
+  [task]="selectedTask"
+  (onAccept)="finishTask($event)"
+  (onClose)="closeModal()"
+  [show]="showModal"
+/>
+
+} @else {
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Tasks</h1>
+      <p>You must be logged in to view this page.</p>
+    </div>
+  </div>
+</div>
+}

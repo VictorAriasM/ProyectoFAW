@@ -1,0 +1,16 @@
+<div class="container-fluid text-center vh-100">
+  <div class="row h-100">
+    <div class="col-md-6 p-0 h-100 border-end">
+      <div
+        class="p-5 d-flex flex-column justify-content-center align-items-center h-100"
+      >
+        <img class="mb-3 w-50" src="/tm-logo.png" alt="logo" />
+
+        <ng-content />
+      </div>
+    </div>
+    <div class="col-md-6 p-0 overflow-hidden">
+      <img class="image-fluid mx-auto" [src]="sideImage" alt="" />
+    </div>
+  </div>
+</div>

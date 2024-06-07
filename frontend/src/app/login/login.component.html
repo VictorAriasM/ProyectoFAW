@@ -1,0 +1,23 @@
+<app-welcome-banner>
+  <h2 class="card-title mb-5">Bienvenido!</h2>
+  <div class="login-form">
+    <input
+      class="form-control mb-3"
+      type="email"
+      id="email"
+      placeholder="Email"
+      [(ngModel)]="email"
+    />
+    <input
+      class="form-control mb-3"
+      type="password"
+      id="password"
+      placeholder="Password"
+      [(ngModel)]="password"
+    />
+    <button class="btn btn-primary" (click)="login()">Iniciar sesión</button>
+  </div>
+  <p class="mt-4">
+    ¿No tienes cuenta? <a routerLink="/register">Regístrate</a>
+  </p>
+</app-welcome-banner>
